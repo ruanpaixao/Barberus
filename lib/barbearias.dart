@@ -1,3 +1,7 @@
+import 'package:barber_hours/barber1.dart';
+import 'package:barber_hours/barber2.dart';
+import 'package:barber_hours/barber3.dart';
+import 'package:barber_hours/main.dart';
 import 'package:flutter/material.dart';
 
 class VerBarbeariasPage extends StatelessWidget {
@@ -19,7 +23,7 @@ class VerBarbeariasPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DetalhesServicoPage('Serviço 1', 'R\$ 100,00')),
+                  MaterialPageRoute(builder: (context) => BarbeiroInfoPage()),
                 );
               },
             ),
@@ -31,7 +35,7 @@ class VerBarbeariasPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DetalhesServicoPage('Serviço 2', 'R\$ 200,00')),
+                  MaterialPageRoute(builder: (context) => BarbeiroInfoPage2()),
                 );
               },
             ),
@@ -43,7 +47,7 @@ class VerBarbeariasPage extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DetalhesServicoPage('Serviço 3', 'R\$ 300,00')),
+                  MaterialPageRoute(builder: (context) => BarbeiroInfoPage3()),
                 );
               },
             ),
@@ -127,10 +131,26 @@ class DetalhesServicoPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(serviceName),
       ),
-      body: Center(
-        child: Text(
-          '$serviceName - $servicePrice',
-          style: TextStyle(fontSize: 24),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$serviceName - $servicePrice',
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context); // Volta para a página anterior
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
+              child: Text('Voltar'),
+            ),
+          ],
         ),
       ),
     );
@@ -139,6 +159,6 @@ class DetalhesServicoPage extends StatelessWidget {
 
 void main() {
   runApp(MaterialApp(
-    home: VerBarbeariasPage(),
+    home: BarberHoursApp(),
   ));
 }
