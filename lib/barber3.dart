@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Import para usar ícones FontAwesome
 import 'package:url_launcher/url_launcher.dart'; // Import para abrir links
 
-class BarbeiroInfoPage extends StatelessWidget {
-  const BarbeiroInfoPage({Key? key}) : super(key: key);
+class BarbeiroInfoPage3 extends StatelessWidget {
+  const BarbeiroInfoPage3({Key? key}) : super(key: key);
 
   final String endereco = 'Rua Fictícia, 123 - Bairro Imaginário, Cidade Exemplo';
   final String numeroWhatsApp = '+55 11 98765-4321'; // Número fictício de WhatsApp
@@ -12,7 +12,7 @@ class BarbeiroInfoPage extends StatelessWidget {
 
   // Função para abrir o link do WhatsApp
   void _abrirWhatsApp() async {
-    final Uri url = Uri.parse('https://wa.me/5511987654321'); // Link do WhatsApp com o número
+    final Uri url = Uri.parse('https://wa.me/5551986759065'); // Link do WhatsApp com o número
     if (!await launchUrl(url)) {
       throw 'Não foi possível abrir o WhatsApp';
     }
@@ -41,7 +41,7 @@ class BarbeiroInfoPage extends StatelessWidget {
             SizedBox(height: 20),
             Center(
               child: Text(
-                'Barbeiro João Silva',
+                'Barbeiro MCK',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
