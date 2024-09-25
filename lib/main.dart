@@ -16,6 +16,7 @@ class BarberHoursApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(),
+      debugShowCheckedModeBanner: false, // Remove a faixa de debug
     );
   }
 }
@@ -71,8 +72,8 @@ class HomePage extends StatelessWidget {
                 print('Perfil pressionado');
                 // Adicione a navegação ou ação desejada aqui
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PerfilPage()),
+                  context,
+                  MaterialPageRoute(builder: (context) => PerfilPage()),
                 );
               },
               child: Text('Perfil'),

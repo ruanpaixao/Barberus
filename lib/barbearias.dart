@@ -17,7 +17,6 @@ class VerBarbeariasPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ServiceButton(
-              imagePath: 'assets/icone.png', // Usar Image.asset
               infoText: 'Serviço 1',
               price: 'R\$ 100,00',
               onTap: () {
@@ -29,7 +28,6 @@ class VerBarbeariasPage extends StatelessWidget {
             ),
             SizedBox(height: 16), // Espaço entre os botões
             ServiceButton(
-              imagePath: 'assets/icone.png',
               infoText: 'Serviço 2',
               price: 'R\$ 200,00',
               onTap: () {
@@ -41,7 +39,6 @@ class VerBarbeariasPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             ServiceButton(
-              imagePath: 'assets/icone.png',
               infoText: 'Serviço 3',
               price: 'R\$ 300,00',
               onTap: () {
@@ -59,13 +56,11 @@ class VerBarbeariasPage extends StatelessWidget {
 }
 
 class ServiceButton extends StatelessWidget {
-  final String imagePath;
   final String infoText;
   final String price;
   final VoidCallback onTap; // Função que será chamada ao clicar no botão
 
   ServiceButton({
-    required this.imagePath,
     required this.infoText,
     required this.price,
     required this.onTap,
@@ -81,38 +76,29 @@ class ServiceButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(50), // Torna o botão oval
         ),
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-        child: Row(
-          children: [
-            Image.asset(
-              imagePath, // Exibir imagem ao invés do ícone
-              width: 20.0, // Tamanho da imagem
-              height: 20.0,
-            ),
-            SizedBox(width: 16), // Espaço entre a imagem e o texto
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    infoText,
-                    style: TextStyle(
-                      color: Colors.white, // Cor do texto
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8), // Espaço entre o texto de informações e o preço
-                  Text(
-                    price,
-                    style: TextStyle(
-                      color: Colors.white70, // Cor do texto do preço
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
+        child: Center( // Adiciona um widget Center para centralizar os filhos
+          child: Column(
+            children: [
+              Text(
+                infoText,
+                textAlign: TextAlign.center, // Centraliza o texto dentro do Text
+                style: TextStyle(
+                  color: Colors.white, // Cor do texto
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 8), // Espaço entre o texto de informações e o preço
+              Text(
+                price,
+                textAlign: TextAlign.center, // Centraliza o texto do preço também
+                style: TextStyle(
+                  color: Colors.white70, // Cor do texto do preço
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -2,21 +2,13 @@ import 'package:flutter/material.dart';
 
 class PerfilPage extends StatelessWidget {
   const PerfilPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green, // Barra verde
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/logo.png', // Caminho do logo
-              height: 10, // Ajuste o tamanho do logo conforme necessário
-            ),
-            SizedBox(width: 30),
-            Text('Barberus'), // Nome do aplicativo
-          ],
-        ),
+        title: Text('Barberus'), // Nome do aplicativo
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -25,7 +17,10 @@ class PerfilPage extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 50,
-              backgroundImage: AssetImage('assets/user_profile.png'), // Foto de perfil
+              child: Icon(
+                Icons.person,
+                size: 50,
+              ), // Ícone de perfil em vez de imagem
             ),
             SizedBox(height: 16),
             Center(
