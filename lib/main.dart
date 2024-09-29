@@ -1,6 +1,7 @@
 import 'package:barber_hours/barbearias.dart';
 import 'package:barber_hours/peril.dart';
 import 'package:flutter/material.dart';
+import 'crud.dart'; // Importa o arquivo CRUD
 
 void main() {
   runApp(BarberHoursApp());
@@ -53,6 +54,8 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30.0), // Espaço entre o texto e os botões
+
+            // Botão para Ver Barbearias
             ElevatedButton(
               onPressed: () {
                 print('Ver Barbearias pressionado');
@@ -67,10 +70,11 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20.0), // Espaço entre os botões
+
+            // Botão para Perfil
             ElevatedButton(
               onPressed: () {
                 print('Perfil pressionado');
-                // Adicione a navegação ou ação desejada aqui
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => PerfilPage()),
@@ -79,6 +83,23 @@ class HomePage extends StatelessWidget {
               child: Text('Perfil'),
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+              ),
+            ),
+            SizedBox(height: 20.0), // Espaço entre os botões
+
+            // Botão para Adicionar Serviços (navega para o CRUD)
+            ElevatedButton(
+              onPressed: () {
+                print('Adicionar Serviços pressionado');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CrudPage()),
+                );
+              },
+              child: Text('Adicionar Serviços'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+                backgroundColor: Colors.green, // Cor personalizada para este botão
               ),
             ),
           ],
