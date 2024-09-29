@@ -1,56 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Para ícones de WhatsApp e Instagram
 import 'package:url_launcher/url_launcher.dart'; // Para abrir links
-import 'crud.dart'; // Importar o Service class
+import 'crud.dart'; // Importa a classe Service
 
-class BarbeiroInfoPage extends StatelessWidget {
+class BarbeiroInfoPage extends StatefulWidget {
   final Service service;
 
   // Construtor que aceita o parâmetro service
   BarbeiroInfoPage({required this.service});
 
+  @override
+  _BarbeiroInfoPageState createState() => _BarbeiroInfoPageState();
+}
+
+class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
+  DateTime? _selectedDate;
+  TimeOfDay? _selectedTime;
+
   // Função para abrir o mapa
   void _abrirMapa() async {
-    final Uri url = Uri.parse(service.mapsLink); // Link do Google Maps
-    if (!await launchUrl(url)) {
-      throw 'Não foi possível abrir o mapa';
+    if (widget.service.mapsLink.isNotEmpty) {
+      final Uri url = Uri.parse(widget.service.mapsLink); // Link do Google Maps
+      if (!await launchUrl(url)) {
+        throw 'Não foi possível abrir o mapa';
+      }
+    } else {
+      throw 'Nenhum link de mapa disponível';
     }
   }
 
   // Função para abrir WhatsApp
   void _abrirWhatsApp() async {
-    final Uri url = Uri.parse('https://wa.me/${service.whatsAppNumber}');
-    if (!await launchUrl(url)) {
-      throw 'Não foi possível abrir o WhatsApp';
+    if (widget.service.whatsAppNumber.isNotEmpty) {
+      final Uri url = Uri.parse('https://wa.me/${widget.service.whatsAppNumber}');
+      if (!await launchUrl(url)) {
+        throw 'Não foi possível abrir o WhatsApp';
+      }
+    } else {
+      throw 'Nenhum número de WhatsApp disponível';
     }
   }
 
   // Função para abrir Instagram
   void _abrirInstagram() async {
-    final Uri url = Uri.parse(service.instagramLink);
-    if (!await launchUrl(url)) {
-      throw 'Não foi possível abrir o Instagram';
+    if (widget.service.instagramLink.isNotEmpty) {
+      final Uri url = Uri.parse(widget.service.instagramLink);
+      if (!await launchUrl(url)) {
+        throw 'Não foi possível abrir o Instagram';
+      }
+    } else {
+      throw 'Nenhum link do Instagram disponível';
     }
   }
 
-  // Função para selecionar horário (simulada aqui)
-  void _marcarHorario(BuildContext context) {
-    // Exemplo de função para selecionar data/horário
-    showDialog(
+  // Função para selecionar a data
+  Future<void> _selecionarData(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Marcar Horário'),
-        content: Text('Função de marcar horário em construção!'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Ok'),
-          ),
-        ],
-      ),
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime(2100),
     );
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+      });
+    }
+  }
+
+  // Função para selecionar o horário
+  Future<void> _selecionarHorario(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    if (pickedTime != null && pickedTime != _selectedTime) {
+      setState(() {
+        _selectedTime = pickedTime;
+      });
+    }
   }
 
   // Função para enviar marcação (simulada)
@@ -76,7 +104,7 @@ class BarbeiroInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Serviço: ${service.name}'),
+        title: Text('Serviço: ${widget.service.name}'),
         backgroundColor: Colors.green,
       ),
       body: Padding(
@@ -86,25 +114,25 @@ class BarbeiroInfoPage extends StatelessWidget {
           children: [
             Center(
               child: Text(
-                'Barbeiro: ${service.barbeiroName}', // Nome do barbeiro
+                'Barbeiro: ${widget.service.barbeiroName.isNotEmpty ? widget.service.barbeiroName : 'Nome não informado'}', // Nome do barbeiro
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(height: 20),
             Text(
-              'Serviço: ${service.name}',
+              'Serviço: ${widget.service.name}',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             Text(
-              'Preço: ${service.price}',
+              'Preço: ${widget.service.price}',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 20),
 
             // Botão para abrir o mapa
             ElevatedButton(
-              onPressed: _abrirMapa,
+              onPressed: widget.service.mapsLink.isNotEmpty ? _abrirMapa : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
@@ -112,14 +140,40 @@ class BarbeiroInfoPage extends StatelessWidget {
             ),
             SizedBox(height: 20),
 
-            // Botão para marcar horário e dia
+            // Botão para selecionar data
             ElevatedButton(
-              onPressed: () => _marcarHorario(context),
+              onPressed: () => _selecionarData(context),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              child: Text('Marcar Horário e Dia'),
+              child: Text('Escolher Data'),
             ),
+            SizedBox(height: 10),
+            _selectedDate != null
+                ? Text(
+              'Data selecionada: ${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
+              style: TextStyle(fontSize: 16),
+            )
+                : Text('Nenhuma data selecionada'),
+
+            SizedBox(height: 20),
+
+            // Botão para selecionar horário
+            ElevatedButton(
+              onPressed: () => _selecionarHorario(context),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+              ),
+              child: Text('Escolher Horário'),
+            ),
+            SizedBox(height: 10),
+            _selectedTime != null
+                ? Text(
+              'Horário selecionado: ${_selectedTime!.format(context)}',
+              style: TextStyle(fontSize: 16),
+            )
+                : Text('Nenhum horário selecionado'),
+
             SizedBox(height: 20),
 
             // Botão para enviar marcação
@@ -134,7 +188,7 @@ class BarbeiroInfoPage extends StatelessWidget {
 
             // Botão do WhatsApp
             ElevatedButton.icon(
-              onPressed: _abrirWhatsApp,
+              onPressed: widget.service.whatsAppNumber.isNotEmpty ? _abrirWhatsApp : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
@@ -145,7 +199,7 @@ class BarbeiroInfoPage extends StatelessWidget {
 
             // Botão do Instagram
             ElevatedButton.icon(
-              onPressed: _abrirInstagram,
+              onPressed: widget.service.instagramLink.isNotEmpty ? _abrirInstagram : null,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.purple,
               ),

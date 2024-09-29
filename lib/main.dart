@@ -23,6 +23,51 @@ class BarberHoursApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  final String correctPassword = "barbeiroscadastro"; // Senha correta
+
+  // Função para mostrar o diálogo de senha
+  void _showPasswordDialog(BuildContext context) {
+    final TextEditingController passwordController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Digite a Senha'),
+          content: TextField(
+            controller: passwordController,
+            obscureText: true, // Oculta o texto da senha
+            decoration: InputDecoration(hintText: 'Senha'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Fecha o diálogo
+              },
+              child: Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                if (passwordController.text == correctPassword) {
+                  Navigator.of(context).pop(); // Fecha o diálogo
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CrudPage()), // Navega para a página CRUD
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Senha incorreta')),
+                  );
+                }
+              },
+              child: Text('Confirmar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,14 +132,11 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 20.0), // Espaço entre os botões
 
-            // Botão para Adicionar Serviços (navega para o CRUD)
+            // Botão para Adicionar Serviços (navega para o CRUD com senha)
             ElevatedButton(
               onPressed: () {
                 print('Adicionar Serviços pressionado');
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CrudPage()),
-                );
+                _showPasswordDialog(context); // Mostra o diálogo de senha
               },
               child: Text('Adicionar Serviços'),
               style: ElevatedButton.styleFrom(

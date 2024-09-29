@@ -39,7 +39,7 @@ class VerBarbeariasPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            service.name,
+                            service.barbeariaName,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
