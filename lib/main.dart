@@ -1,7 +1,8 @@
 import 'package:barber_hours/barbearias.dart';
+import 'package:barber_hours/barbeiroagendapage.dart';
 import 'package:flutter/material.dart';
 import 'crud.dart'; // Importa o arquivo CRUD
-import 'confirmacaomarcacaopage.dart';
+import 'confirmacaomarcacaopage.dart'; // Importa a página de confirmação
 
 void main() {
   runApp(BarberHoursApp());
@@ -67,9 +68,7 @@ class HomePage extends StatelessWidget {
                     Navigator.of(context).pop(); // Fecha o diálogo
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => confirmacaomarcacaopage(barbeiro: "", servico: "", data: "", horario: ""),
-                        ),
+                      MaterialPageRoute(builder: (context) => BarbeiroAgendaPage()), // Navega para a página de agenda
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -161,24 +160,6 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-// Defina uma nova página para as Marcações (exemplo básico)
-class MarcacoesPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Marcações'),
-      ),
-      body: Center(
-        child: Text(
-          'Aqui estão as marcações!',
-          style: TextStyle(fontSize: 24),
         ),
       ),
     );

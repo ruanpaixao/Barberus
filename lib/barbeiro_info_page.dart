@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Para ícones de WhatsApp e Instagram
 import 'package:url_launcher/url_launcher.dart'; // Para abrir links
 import 'crud.dart'; // Importa a classe Service
-import 'confirmacaomarcacaopage.dart';
+import 'confirmacaomarcacaopage.dart'; // Importa a página de confirmação
 
 class BarbeiroInfoPage extends StatefulWidget {
   final Service service;
@@ -92,7 +92,7 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => confirmacaomarcacaopage(
+          builder: (context) => ConfirmacaoMarcacaoPage(
             barbeiro: widget.service.barbeiroName,
             servico: widget.service.name,
             data: data,
@@ -132,12 +132,6 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Center(
-              child: Text(
-                'Barbeiro: ${widget.service.barbeiroName.isNotEmpty ? widget.service.barbeiroName : 'Nome não informado'}', // Nome do barbeiro
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-            ),
             SizedBox(height: 20),
             Text(
               'Serviço: ${widget.service.name}',

@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
 
-class confirmacaomarcacaopage extends StatelessWidget {
+// Classe para armazenar marcações
+class Marcacao {
   final String barbeiro;
   final String servico;
   final String data;
   final String horario;
 
-  // Construtor que aceita os dados de marcação
-  confirmacaomarcacaopage({
+  Marcacao({
+    required this.barbeiro,
+    required this.servico,
+    required this.data,
+    required this.horario,
+  });
+}
+
+// Lista global para armazenar as marcações
+List<Marcacao> agenda = [];
+
+class ConfirmacaoMarcacaoPage extends StatelessWidget {
+  final String barbeiro;
+  final String servico;
+  final String data;
+  final String horario;
+
+  // Construtor que aceita os parâmetros da marcação
+  ConfirmacaoMarcacaoPage({
     required this.barbeiro,
     required this.servico,
     required this.data,
@@ -26,41 +44,63 @@ class confirmacaomarcacaopage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Center(
-              child: Text(
-                'Marcação Confirmada!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+            Text(
+              'Detalhes da Marcação',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
             Text(
               'Barbeiro: $barbeiro',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 10),
             Text(
               'Serviço: $servico',
               style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 10),
             Text(
               'Data: $data',
               style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 10),
             Text(
               'Horário: $horario',
               style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
+
+            // Botão para confirmar a marcação
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Voltar para a página anterior
+                // Adiciona a marcação à agenda
+                agenda.add(Marcacao(
+                  barbeiro: barbeiro,
+                  servico: servico,
+                  data: data,
+                  horario: horario,
+                ));
+
+                // Lógica para confirmar a marcação
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text('Sucesso'),
+                    content: Text('Marcação confirmada com sucesso!'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Fecha o diálogo
+                          Navigator.of(context).pop(); // Volta para a página anterior
+                        },
+                        child: Text('Ok'),
+                      ),
+                    ],
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              child: Text('Voltar'),
+              child: Text('Confirmar Marcação'),
             ),
           ],
         ),
@@ -68,3 +108,4 @@ class confirmacaomarcacaopage extends StatelessWidget {
     );
   }
 }
+
