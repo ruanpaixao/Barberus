@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart'; // Para ícones de WhatsApp e Instagram
 import 'package:url_launcher/url_launcher.dart'; // Para abrir links
 import 'crud.dart'; // Importa a classe Service
+import 'confirmacaomarcacaopage.dart';
 
 class BarbeiroInfoPage extends StatefulWidget {
   final Service service;
@@ -81,23 +82,42 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
     }
   }
 
-  // Função para enviar marcação (simulada)
+  // Função para enviar marcação
   void _enviarMarcacao(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Marcação enviada'),
-        content: Text('Sua marcação foi enviada com sucesso!'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Ok'),
+    if (_selectedDate != null && _selectedTime != null) {
+      final String data = '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
+      final String horario = _selectedTime!.format(context);
+
+      // Redireciona para a página de confirmação com os detalhes da marcação
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => confirmacaomarcacaopage(
+            barbeiro: widget.service.barbeiroName,
+            servico: widget.service.name,
+            data: data,
+            horario: horario,
           ),
-        ],
-      ),
-    );
+        ),
+      );
+    } else {
+      // Exibe um alerta caso a data ou horário não tenham sido selecionados
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Erro'),
+          content: Text('Por favor, selecione uma data e um horário para continuar.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Ok'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   @override
