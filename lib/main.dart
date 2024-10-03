@@ -25,10 +25,9 @@ class BarberHoursApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   final String correctPassword = "barbeiroscadastro"; // Senha correta para adicionar serviços
-  final String correctPasswordMarcacoes = "marcacoes123"; // Senha correta para marcações
 
-  // Função para mostrar o diálogo de senha
-  void _showPasswordDialog(BuildContext context, String action) {
+  // Função para mostrar o diálogo de senha para adicionar serviços
+  void _showPasswordDialog(BuildContext context) {
     final TextEditingController passwordController = TextEditingController();
 
     showDialog(
@@ -50,31 +49,16 @@ class HomePage extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                // Verifica qual ação está sendo solicitada (Serviços ou Marcações)
-                if (action == 'servicos') {
-                  if (passwordController.text == correctPassword) {
-                    Navigator.of(context).pop(); // Fecha o diálogo
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CrudPage()), // Navega para a página CRUD
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Senha incorreta')),
-                    );
-                  }
-                } else if (action == 'marcacoes') {
-                  if (passwordController.text == correctPasswordMarcacoes) {
-                    Navigator.of(context).pop(); // Fecha o diálogo
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => BarbeiroAgendaPage()), // Navega para a página de agenda
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Senha incorreta')),
-                    );
-                  }
+                if (passwordController.text == correctPassword) {
+                  Navigator.of(context).pop(); // Fecha o diálogo
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CrudPage()), // Navega para a página CRUD
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Senha incorreta')),
+                  );
                 }
               },
               child: Text('Confirmar'),
@@ -89,7 +73,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Barberus'),
+        title: Center(
+          child: Text(
+            'Barberus', // Centraliza o título no topo da tela
+            style: TextStyle(fontSize: 24.0),
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -129,6 +118,7 @@ class HomePage extends StatelessWidget {
               child: Text('Ver Barbearias'),
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+                backgroundColor: Colors.green,
               ),
             ),
             SizedBox(height: 20.0), // Espaço entre os botões
@@ -137,7 +127,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 print('Adicionar Serviços pressionado');
-                _showPasswordDialog(context, 'servicos'); // Mostra o diálogo de senha para serviços
+                _showPasswordDialog(context); // Mostra o diálogo de senha para serviços
               },
               child: Text('Adicionar Serviços'),
               style: ElevatedButton.styleFrom(
@@ -147,16 +137,19 @@ class HomePage extends StatelessWidget {
             ),
             SizedBox(height: 20.0), // Espaço entre os botões
 
-            // Botão para Marcações (navega para a página de marcações com senha)
+            // Botão para Marcações (navega para a página de marcações sem senha)
             ElevatedButton(
               onPressed: () {
                 print('Marcações pressionado');
-                _showPasswordDialog(context, 'marcacoes'); // Mostra o diálogo de senha para marcações
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BarbeiroAgendaPage()), // Navega direto para a agenda
+                );
               },
               child: Text('Marcações'),
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
-                backgroundColor: Colors.orange, // Cor personalizada para este botão
+                backgroundColor: Colors.green, // Muda a cor para verde
               ),
             ),
           ],
