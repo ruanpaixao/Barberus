@@ -2,7 +2,6 @@ import 'package:barber_hours/barbearias.dart';
 import 'package:barber_hours/barbeiroagendapage.dart';
 import 'package:flutter/material.dart';
 import 'crud.dart'; // Importa o arquivo CRUD
-import 'confirmacaomarcacaopage.dart'; // Importa a página de confirmação
 
 void main() {
   runApp(BarberHoursApp());
