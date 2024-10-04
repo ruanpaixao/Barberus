@@ -7,7 +7,6 @@ import 'confirmacaomarcacaopage.dart'; // Importa a página de confirmação
 class BarbeiroInfoPage extends StatefulWidget {
   final Service service;
 
-  // Construtor que aceita o parâmetro service
   BarbeiroInfoPage({required this.service});
 
   @override
@@ -17,6 +16,10 @@ class BarbeiroInfoPage extends StatefulWidget {
 class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
+
+  // Controladores para capturar o nome e número do WhatsApp do cliente
+  final TextEditingController _nomeController = TextEditingController();
+  final TextEditingController _whatsAppController = TextEditingController();
 
   // Função para abrir o mapa
   void _abrirMapa() async {
@@ -85,21 +88,41 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
   // Função para enviar marcação
   void _enviarMarcacao(BuildContext context) {
     if (_selectedDate != null && _selectedTime != null) {
-      final String data = '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
-      final String horario = _selectedTime!.format(context);
+      // Verifica se o nome e número de WhatsApp foram preenchidos
+      if (_nomeController.text.isNotEmpty && _whatsAppController.text.isNotEmpty) {
+        final String data = '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}';
+        final String horario = _selectedTime!.format(context);
 
-      // Redireciona para a página de confirmação com os detalhes da marcação
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ConfirmacaoMarcacaoPage(
-            barbeiro: widget.service.barbeiroName,
-            servico: widget.service.name,
-            data: data,
-            horario: horario,
+        // Redireciona para a página de confirmação com os detalhes da marcação
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConfirmacaoMarcacaoPage(
+              barbeiro: widget.service.barbeiroName,
+              servico: widget.service.name,
+              data: data,
+              horario: horario,
+            ),
           ),
-        ),
-      );
+        );
+      } else {
+        // Exibe um alerta caso o nome ou número de WhatsApp não tenham sido preenchidos
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Erro'),
+            content: Text('Por favor, preencha seu nome e número de WhatsApp.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Ok'),
+              ),
+            ],
+          ),
+        );
+      }
     } else {
       // Exibe um alerta caso a data ou horário não tenham sido selecionados
       showDialog(
@@ -144,13 +167,51 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
             ),
             SizedBox(height: 20),
 
-            // Botão para abrir o mapa
-            ElevatedButton(
-              onPressed: widget.service.mapsLink.isNotEmpty ? _abrirMapa : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
+            // Campo para o nome do cliente
+            TextField(
+              controller: _nomeController,
+              decoration: InputDecoration(
+                labelText: 'Seu Nome',
+                border: OutlineInputBorder(),
               ),
-              child: Text('Ver Endereço no Mapa'),
+            ),
+            SizedBox(height: 20),
+
+            // Campo para o número do WhatsApp
+            TextField(
+              controller: _whatsAppController,
+              decoration: InputDecoration(
+                labelText: 'Número do WhatsApp',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(height: 20),
+
+            // Ícones clicáveis para o mapa, WhatsApp e Instagram
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Ícone do Google Maps
+                IconButton(
+                  onPressed: widget.service.mapsLink.isNotEmpty ? _abrirMapa : null,
+                  icon: FaIcon(FontAwesomeIcons.mapMarkedAlt, color: Colors.green, size: 40),
+                ),
+                SizedBox(width: 20),
+
+                // Ícone do WhatsApp
+                IconButton(
+                  onPressed: widget.service.whatsAppNumber.isNotEmpty ? _abrirWhatsApp : null,
+                  icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green, size: 40),
+                ),
+                SizedBox(width: 20),
+
+                // Ícone do Instagram
+                IconButton(
+                  onPressed: widget.service.instagramLink.isNotEmpty ? _abrirInstagram : null,
+                  icon: FaIcon(FontAwesomeIcons.instagram, color: Colors.purple, size: 40),
+                ),
+              ],
             ),
             SizedBox(height: 20),
 
@@ -197,28 +258,6 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
                 backgroundColor: Colors.green,
               ),
               child: Text('Enviar Marcação'),
-            ),
-            SizedBox(height: 20),
-
-            // Botão do WhatsApp
-            ElevatedButton.icon(
-              onPressed: widget.service.whatsAppNumber.isNotEmpty ? _abrirWhatsApp : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-              ),
-              icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white),
-              label: Text('Contato via WhatsApp'),
-            ),
-            SizedBox(height: 20),
-
-            // Botão do Instagram
-            ElevatedButton.icon(
-              onPressed: widget.service.instagramLink.isNotEmpty ? _abrirInstagram : null,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple,
-              ),
-              icon: FaIcon(FontAwesomeIcons.instagram, color: Colors.white),
-              label: Text('Instagram'),
             ),
             SizedBox(height: 20),
 

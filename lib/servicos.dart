@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'crud.dart'; // Importa a lista de serviços
 import 'barbeiro_info_page.dart'; // Importa a página de informações do barbeiro
 
-class VerBarbeariasPage extends StatelessWidget {
+class servicos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ver Barbearias'),
+        title: Text('Serviços'),
         backgroundColor: Colors.green,
       ),
       body: Padding(
@@ -39,7 +39,7 @@ class VerBarbeariasPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            service.barbeariaName,
+                            service.name,
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

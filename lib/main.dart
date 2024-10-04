@@ -1,4 +1,4 @@
-import 'package:barber_hours/barbearias.dart';
+import 'package:barber_hours/servicos.dart';
 import 'package:barber_hours/barbeiroagendapage.dart';
 import 'package:flutter/material.dart';
 import 'crud.dart'; // Importa o arquivo CRUD
@@ -23,7 +23,7 @@ class BarberHoursApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final String correctPassword = "barbeiroscadastro"; // Senha correta para adicionar serviços
+  final String correctPassword = "1234"; // Senha correta para adicionar serviços
 
   // Função para mostrar o diálogo de senha para adicionar serviços
   void _showPasswordDialog(BuildContext context) {
@@ -111,10 +111,10 @@ class HomePage extends StatelessWidget {
                 print('Ver Barbearias pressionado');
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => VerBarbeariasPage()),
+                  MaterialPageRoute(builder: (context) => servicos()),
                 );
               },
-              child: Text('Ver Barbearias'),
+              child: Text('Serviços'),
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
                 backgroundColor: Colors.green,
