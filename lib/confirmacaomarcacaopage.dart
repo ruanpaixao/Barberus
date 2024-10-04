@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'barbeiroagendapage.dart';
 
 // Classe para armazenar marcações
 class Marcacao {
@@ -50,25 +51,11 @@ class ConfirmacaoMarcacaoPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             SizedBox(height: 20),
-            Text(
-              'Barbeiro: $barbeiro',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Serviço: $servico',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Data: $data',
-              style: TextStyle(fontSize: 18),
-            ),
-            Text(
-              'Horário: $horario',
-              style: TextStyle(fontSize: 18),
-            ),
+            Text('Barbeiro: $barbeiro', style: TextStyle(fontSize: 18)),
+            Text('Serviço: $servico', style: TextStyle(fontSize: 18)),
+            Text('Data: $data', style: TextStyle(fontSize: 18)),
+            Text('Horário: $horario', style: TextStyle(fontSize: 18)),
             SizedBox(height: 40),
-
-            // Botão para confirmar a marcação
             ElevatedButton(
               onPressed: () {
                 // Adiciona a marcação à agenda
@@ -90,6 +77,12 @@ class ConfirmacaoMarcacaoPage extends StatelessWidget {
                         onPressed: () {
                           Navigator.of(context).pop(); // Fecha o diálogo
                           Navigator.of(context).pop(); // Volta para a página anterior
+                          // Se necessário, navegue para a BarbeiroAgendaPage
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => BarbeiroAgendaPage(),
+                            ),
+                          );
                         },
                         child: Text('Ok'),
                       ),
@@ -108,4 +101,3 @@ class ConfirmacaoMarcacaoPage extends StatelessWidget {
     );
   }
 }
-

@@ -1,12 +1,17 @@
-import 'package:barber_hours/confirmacaomarcacaopage.dart';
 import 'package:flutter/material.dart';
+import 'confirmacaomarcacaopage.dart';
 
-class BarbeiroAgendaPage extends StatelessWidget {
+class BarbeiroAgendaPage extends StatefulWidget {
+  @override
+  _BarbeiroAgendaPageState createState() => _BarbeiroAgendaPageState();
+}
+
+class _BarbeiroAgendaPageState extends State<BarbeiroAgendaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agenda do Barbeiro'),
+        title: Text('Agenda'),
         backgroundColor: Colors.green,
       ),
       body: Padding(
@@ -18,9 +23,13 @@ class BarbeiroAgendaPage extends StatelessWidget {
             final marcacao = agenda[index];
             return Card(
               child: ListTile(
-                title: Text('${marcacao.servico} com ${marcacao.barbeiro}'),
+                title: Text('${marcacao.servico} - ${marcacao.barbeiro}'),
                 subtitle: Text('Data: ${marcacao.data} - Horário: ${marcacao.horario}'),
                 leading: Icon(Icons.calendar_today),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete, color: Colors.red),
+                  onPressed: () => _deleteMarcacao(index),
+                ),
               ),
             );
           },
@@ -34,5 +43,13 @@ class BarbeiroAgendaPage extends StatelessWidget {
       ),
     );
   }
-}
 
+  void _deleteMarcacao(int index) {
+    setState(() {
+      agenda.removeAt(index);
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Marcação removida com sucesso!')),
+    );
+  }
+}
