@@ -33,7 +33,6 @@ class _CrudPageState extends State<CrudPage> {
   final TextEditingController _mapsController = TextEditingController(); // Controlador para Google Maps
   final TextEditingController _whatsAppController = TextEditingController(); // Controlador para WhatsApp
   final TextEditingController _instagramController = TextEditingController(); // Controlador para Instagram
-  final _formKey = GlobalKey<FormState>();
 
   // Função para adicionar um serviço à lista
   void _adicionarServico() {
@@ -60,9 +59,9 @@ class _CrudPageState extends State<CrudPage> {
       _mapsController.clear();
       _whatsAppController.clear();
       _instagramController.clear();
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Serviço adicionado!')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Serviço adicionado!')));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Preencha todos os campos.')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Preencha todos os campos.')));
     }
   }
 
@@ -70,7 +69,7 @@ class _CrudPageState extends State<CrudPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Adicionar Serviço'),
+        title: const Text('Adicionar Serviço'),
         backgroundColor: Colors.green,
       ),
       body: Padding(
@@ -79,43 +78,43 @@ class _CrudPageState extends State<CrudPage> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'Nome do Serviço'),
+              decoration: const InputDecoration(labelText: 'Nome do Serviço'),
             ),
             TextField(
               controller: _priceController,
-              decoration: InputDecoration(labelText: 'Preço do Serviço'),
+              decoration: const InputDecoration(labelText: 'Preço do Serviço'),
               keyboardType: TextInputType.number,
             ),
             TextField(
               controller: _mapsController,
-              decoration: InputDecoration(labelText: 'Link do Google Maps'),
+              decoration: const InputDecoration(labelText: 'Link do Google Maps'),
             ),
             TextField(
               controller: _whatsAppController,
-              decoration: InputDecoration(labelText: 'Número do WhatsApp'),
+              decoration: const InputDecoration(labelText: 'Número do WhatsApp'),
               keyboardType: TextInputType.phone,
             ),
             TextField(
               controller: _instagramController,
-              decoration: InputDecoration(labelText: 'Link do Instagram'),
+              decoration: const InputDecoration(labelText: 'Link do Instagram'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _adicionarServico,
-              child: Text('Adicionar Serviço'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
+              child: const Text('Adicionar Serviço'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context); // Volta para a página anterior
               },
-              child: Text('Finalizar e Voltar'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red,
               ),
+              child: const Text('Finalizar e Voltar'),
             ),
           ],
         ),

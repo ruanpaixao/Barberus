@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'confirmacaomarcacaopage.dart';
 
 class BarbeiroAgendaPage extends StatefulWidget {
+  const BarbeiroAgendaPage({super.key});
+
   @override
   _BarbeiroAgendaPageState createState() => _BarbeiroAgendaPageState();
 }
@@ -11,7 +13,7 @@ class _BarbeiroAgendaPageState extends State<BarbeiroAgendaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agenda'),
+        title: const Text('Agenda'),
         backgroundColor: Colors.green,
       ),
       body: Padding(
@@ -25,16 +27,16 @@ class _BarbeiroAgendaPageState extends State<BarbeiroAgendaPage> {
               child: ListTile(
                 title: Text('${marcacao.servico} - ${marcacao.barbeiro}'),
                 subtitle: Text('Data: ${marcacao.data} - Horário: ${marcacao.horario}'),
-                leading: Icon(Icons.calendar_today),
+                leading: const Icon(Icons.calendar_today),
                 trailing: IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red),
+                  icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () => _deleteMarcacao(index),
                 ),
               ),
             );
           },
         )
-            : Center(
+            : const Center(
           child: Text(
             'Nenhuma marcação agendada.',
             style: TextStyle(fontSize: 18),
@@ -49,7 +51,7 @@ class _BarbeiroAgendaPageState extends State<BarbeiroAgendaPage> {
       agenda.removeAt(index);
     });
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Marcação removida com sucesso!')),
+      const SnackBar(content: Text('Marcação removida com sucesso!')),
     );
   }
 }

@@ -110,14 +110,14 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Erro'),
-            content: Text('Por favor, preencha seu nome e número de WhatsApp.'),
+            title: const Text('Erro'),
+            content: const Text('Por favor, preencha seu nome e número de WhatsApp.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Ok'),
+                child: const Text('Ok'),
               ),
             ],
           ),
@@ -128,14 +128,14 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Erro'),
-          content: Text('Por favor, selecione uma data e um horário para continuar.'),
+          title: const Text('Erro'),
+          content: const Text('Por favor, selecione uma data e um horário para continuar.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Ok'),
+              child: const Text('Ok'),
             ),
           ],
         ),
@@ -155,38 +155,38 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Serviço: ${widget.service.name}',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Preço: ${widget.service.price}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Campo para o nome do cliente
             TextField(
               controller: _nomeController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Seu Nome',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Campo para o número do WhatsApp
             TextField(
               controller: _whatsAppController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Número do WhatsApp',
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.phone,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Ícones clicáveis para o mapa, WhatsApp e Instagram
             Row(
@@ -195,25 +195,25 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
                 // Ícone do Google Maps
                 IconButton(
                   onPressed: widget.service.mapsLink.isNotEmpty ? _abrirMapa : null,
-                  icon: FaIcon(FontAwesomeIcons.mapMarkedAlt, color: Colors.green, size: 40),
+                  icon: const FaIcon(FontAwesomeIcons.mapMarkedAlt, color: Colors.green, size: 40),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
 
                 // Ícone do WhatsApp
                 IconButton(
                   onPressed: widget.service.whatsAppNumber.isNotEmpty ? _abrirWhatsApp : null,
-                  icon: FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green, size: 40),
+                  icon: const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.green, size: 40),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
 
                 // Ícone do Instagram
                 IconButton(
                   onPressed: widget.service.instagramLink.isNotEmpty ? _abrirInstagram : null,
-                  icon: FaIcon(FontAwesomeIcons.instagram, color: Colors.purple, size: 40),
+                  icon: const FaIcon(FontAwesomeIcons.instagram, color: Colors.purple, size: 40),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Botão para selecionar data
             ElevatedButton(
@@ -221,17 +221,17 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              child: Text('Escolher Data'),
+              child: const Text('Escolher Data'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             _selectedDate != null
                 ? Text(
               'Data selecionada: ${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             )
-                : Text('Nenhuma data selecionada'),
+                : const Text('Nenhuma data selecionada'),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Botão para selecionar horário
             ElevatedButton(
@@ -239,17 +239,17 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              child: Text('Escolher Horário'),
+              child: const Text('Escolher Horário'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             _selectedTime != null
                 ? Text(
               'Horário selecionado: ${_selectedTime!.format(context)}',
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             )
-                : Text('Nenhum horário selecionado'),
+                : const Text('Nenhum horário selecionado'),
 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Botão para enviar marcação
             ElevatedButton(
@@ -257,9 +257,9 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              child: Text('Enviar Marcação'),
+              child: const Text('Enviar Marcação'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Botão de voltar
             ElevatedButton(
@@ -269,7 +269,7 @@ class _BarbeiroInfoPageState extends State<BarbeiroInfoPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              child: Text('Voltar'),
+              child: const Text('Voltar'),
             ),
           ],
         ),

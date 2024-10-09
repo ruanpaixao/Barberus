@@ -37,7 +37,7 @@ class ConfirmacaoMarcacaoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Confirmação de Marcação'),
+        title: const Text('Confirmação de Marcação'),
         backgroundColor: Colors.green,
       ),
       body: Padding(
@@ -45,17 +45,17 @@ class ConfirmacaoMarcacaoPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               'Detalhes da Marcação',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
-            Text('Barbeiro: $barbeiro', style: TextStyle(fontSize: 18)),
-            Text('Serviço: $servico', style: TextStyle(fontSize: 18)),
-            Text('Data: $data', style: TextStyle(fontSize: 18)),
-            Text('Horário: $horario', style: TextStyle(fontSize: 18)),
-            SizedBox(height: 40),
+            const SizedBox(height: 20),
+            Text('Barbeiro: $barbeiro', style: const TextStyle(fontSize: 18)),
+            Text('Serviço: $servico', style: const TextStyle(fontSize: 18)),
+            Text('Data: $data', style: const TextStyle(fontSize: 18)),
+            Text('Horário: $horario', style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 40),
             ElevatedButton(
               onPressed: () {
                 // Adiciona a marcação à agenda
@@ -70,8 +70,8 @@ class ConfirmacaoMarcacaoPage extends StatelessWidget {
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text('Sucesso'),
-                    content: Text('Marcação confirmada com sucesso!'),
+                    title: const Text('Sucesso'),
+                    content: const Text('Marcação confirmada com sucesso!'),
                     actions: [
                       TextButton(
                         onPressed: () {
@@ -80,11 +80,11 @@ class ConfirmacaoMarcacaoPage extends StatelessWidget {
                           // Se necessário, navegue para a BarbeiroAgendaPage
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => BarbeiroAgendaPage(),
+                              builder: (context) => const BarbeiroAgendaPage(),
                             ),
                           );
                         },
-                        child: Text('Ok'),
+                        child: const Text('Ok'),
                       ),
                     ],
                   ),
@@ -93,7 +93,7 @@ class ConfirmacaoMarcacaoPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              child: Text('Confirmar Marcação'),
+              child: const Text('Confirmar Marcação'),
             ),
           ],
         ),
